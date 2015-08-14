@@ -1,0 +1,107 @@
+/*
+ * Copyright (C) 2015 Juan Francisco Rodríguez
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+
+body{
+    background-color: aliceblue;
+    margin: 0px;
+    font-family: Verdana, Tahoma, Arial;
+    color: cadetblue;
+}
+
+input{
+    background-color: azure;
+}
+
+h4{
+    margin-bottom: 0px;
+}
+h5{
+    margin: 0px;
+}
+
+button{
+
+}
+
+#sidebar{
+    width: 30%;
+    height: 100%;
+    overflow: auto;
+    float:left;
+    background-color: lightgrey;
+}
+
+.element_form{
+    border-bottom: solid 1px lightsteelblue;
+}
+
+.in_header{
+    display: inline;
+    float: right;
+}
+
+#main{
+    max-height: 100%;
+    overflow: auto;
+    width:69%;
+    float: right;
+}
+
+#screen{
+    width: 660px;
+    height: 100%;
+    overflow: auto;
+    margin-left: auto;
+    margin-right: auto;
+    position:relative;
+}
+
+#screen img{
+    position:absolute;
+}
+
+.game_element{
+    z-index: 3;
+}
+
+.floor_state{
+    z-index: 2;
+}
+
+.floor_image{
+    z-index: 1;
+}
+
+.header{
+    background-color: lightsteelblue;
+    color: aliceblue;
+}
+
+.hidden{
+    display:none;
+}
+
+#result{
+    width:100%;
+    clear: both;
+    height: 0%;
+}
+
+#portable_forms{
+    display: none;
+}

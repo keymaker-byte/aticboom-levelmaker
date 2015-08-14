@@ -1,0 +1,209 @@
+<!--
+Copyright (C) 2015 Juan Francisco Rodríguez
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+-->
+<html>
+    <head>
+        <link href="css/main.css" type="text/css" rel="stylesheet" />
+        <script src="js/jquery-1.7.2.min.js" ></script>
+        <script src="js/main.js" ></script>
+    </head>
+    <body>
+        <div>
+            <div id="sidebar">
+                <div id="level_form">
+                    <label>Nombre:</label><br />
+                    <input id="level_name" type="text" onChange="changeName()" /><br />
+                    <label>Mundo:</label><br />
+                    <input id="level_world" type="text" value="7" onChange="changeWorld()" /><br />
+                    <label>N. de pisos:<span id="floor_number_value"></span></label><br />
+                    <input id="floor_number" type="range" min="2" max="12" onChange="changeFloorNumber()" /><br />
+                    <label>N. de burbujas:</label><br />
+                    <input id="bubble_number" type="text" maxlength="2" onChange="changeBubbleNumber()" /><br />
+                    <label>Tiempo:</label><br />
+                    <input id="time" type="text" maxlength="2" onChange="changeTime()" /><br />
+                    <label>Billy:</label><br />
+                    <label style="width: 40px; display: inline-block;">X:<span id="player_x_value"></span></label><input id="player_x" type="range" value="0" min="0" max="17" onChange="changePlayerPosition()" />
+                    <label style="width: 40px; display: inline-block;">Y:<span id="player_y_value"></span></label><input class="floor_affected" id="player_y" value="1" type="range" min="1" max="4" onChange="changePlayerPosition()" /><br />
+                </div>
+                <div id="floors">
+                    <div id="floors_header" class="header"><h4 onMouseDown="toggleSection('floors', this)">Pisos <span>></span></h4></div>
+                    <div id="floors_list" class="hidden">
+		    </div>
+                </div>
+                <div id="stars">
+                    <div id="stars_header" class="header"><h4 onMouseDown="toggleSection('stars', this)">Doblones <span>></span></h4></div>
+                    <div id="stars_list" class="hidden">
+                        <div class="element_form">
+                            <h5 class="element_header">Dobl&oacute;n 1</h5>
+                            <label style="width: 40px; display: inline-block;">X:<span id="star_x_value_0"></span></label><input id="star_x_0" data-index="0" data-object="star" type="range" min="0" max="17" onChange="changeObjectPosition(this)" />
+                            <label style="width: 40px; display: inline-block;">Y:<span id="star_y_value_0"></span></label><input id="star_y_0" data-index="0" data-object="star" class="floor_affected" type="range" min="1" max="4" onChange="changeObjectPosition(this)" /><br />
+                        </div>
+                        <div class="element_form">
+                            <h5 class="element_header">Dobl&oacute;n 2</h5>
+                            <label style="width: 40px; display: inline-block;">X:<span id="star_x_value_1"></span></label><input id="star_x_1" data-index="1" data-object="star" type="range" min="0" max="17" onChange="changeObjectPosition(this)" />
+                            <label style="width: 40px; display: inline-block;">Y:<span id="star_y_value_1"></span></label><input id="star_y_1" data-index="1" data-object="star" class="floor_affected" type="range" min="1" max="4" onChange="changeObjectPosition(this)" /><br />
+                        </div>
+                        <div class="element_form">
+                            <h5 class="element_header">Dobl&oacute;n 3</h5>
+                            <label style="width: 40px; display: inline-block;">X:<span id="star_x_value_2"></span></label><input id="star_x_2" data-index="2" data-object="star" type="range" min="0" max="17" onChange="changeObjectPosition(this)" />
+                            <label style="width: 40px; display: inline-block;">Y:<span id="star_y_value_2"></span></label><input id="star_y_2" data-index="2" data-object="star" class="floor_affected" type="range" min="1" max="4" onChange="changeObjectPosition(this)" /><br />
+                        </div>
+                    </div>
+                </div>
+                <div id="stairs">
+                    <div id="stairs_header" class="header">
+                        <h4 onMouseDown="toggleSection('stairs', this)">Escaleras <span>></span></h4>
+                        <button class="in_header" onClick="addStair(event)">+</button><button class="in_header" onClick="removeStair(event)">-</button>
+                    </div>
+                    <div id="stairs_list" class="hidden">
+                    </div>
+                </div>
+                <div id="holes">
+                    <div id="holes_header" class="header">
+                        <h4 onMouseDown="toggleSection('holes', this)">Hoyos <span>></span></h4>
+                        <button class="in_header" onClick="addHole(event)">+</button><button class="in_header" onClick="removeHole(event)">-</button>
+                    </div>
+                    <div id="holes_list" class="hidden">
+                    </div>
+                </div>
+                <div id="walls">
+                    <div id="walls_header" class="header">
+                        <h4 onMouseDown="toggleSection('walls', this)">Muros <span>></span></h4>
+                        <button class="in_header" onClick="addWall(event)">+</button><button class="in_header" onClick="removeWall(event)">-</button>
+                    </div>
+                    <div id="walls_list" class="hidden">
+                    </div>
+                </div>
+
+                <div id="keys">
+                    <div id="keys_header" class="header">
+                        <h4 onMouseDown="toggleSection('keys', this)">Aguas <span>></span></h4>
+                        <button class="in_header" onClick="addKey(event)">+</button><button class="in_header" onClick="removeKey(event)">-</button>
+                    </div>
+                    <div id="keys_list" class="hidden">
+                    </div>
+                </div>
+                <div id="fans">
+                    <div id="fans_header" class="header">
+                        <h4 onMouseDown="toggleSection('fans', this)">Vapores <span>></span></h4>
+                        <button class="in_header" onClick="addFan(event)">+</button><button class="in_header" onClick="removeFan(event)">-</button>
+                    </div>
+                    <div id="fans_list" class="hidden">
+                    </div>
+                </div>
+                <div id="extraBubbles">
+                    <div id="extraBubbles_header" class="header">
+                        <h4 onMouseDown="toggleSection('extraBubbles', this)">Burbujas Extra <span>></span></h4>
+                        <button class="in_header" onClick="addExtraBubble(event)">+</button><button class="in_header" onClick="removeExtraBubble(event)">-</button>
+                    </div>
+                    <div id="extraBubbles_list" class="hidden">
+                    </div>
+                </div>
+                <div id="extraRopes">
+                    <div id="extraRopes_header" class="header">
+                        <h4 onMouseDown="toggleSection('extraRopes', this)">Cuerdas Extra <span>></span></h4>
+                        <button class="in_header" onClick="addExtraRope(event)">+</button><button class="in_header" onClick="removeExtraRope(event)">-</button>
+                    </div>
+                    <div id="extraRopes_list" class="hidden">
+                    </div>
+                </div>
+                <div id="buttons">
+                    <div id="buttons_header" class="header">
+                        <h4 onMouseDown="toggleSection('buttons', this)">Botones <span>></span></h4>
+                        <button class="in_header" onClick="addButton(event)">+</button><button class="in_header" onClick="removeButton(event)">-</button>
+                    </div>
+                    <div id="buttons_list" class="hidden">
+                    </div>
+                </div>
+                <div id="fancys">
+                    <div id="fancys_header" class="header">
+                        <h4 onMouseDown="toggleSection('fancys', this)">Hints <span>></span></h4>
+                        <button class="in_header" onClick="addFancy(event)">+</button><button class="in_header" onClick="removeFancy(event)">-</button>
+                    </div>
+                    <div id="fancys_list" class="hidden">
+                    </div>
+                </div>
+                <div id="json">
+                    <div id="json_header" class="header">
+                        <h4 onMouseDown="toggleSection('json', this)">JSON<span>></span></h4>
+                    </div>
+                    <div id="json_list" class="hidden">
+                        <textarea id="json_text" style="width:100%; height: 150px;"></textarea>
+                        <button onClick="importJson()">Importar</button>
+                    </div>
+                </div>
+            </div>
+            <div id="main">
+                <div id="screen">
+                    <img id="player_img" src="assets/player.png" class="game_element" />
+                    <img id="star_img_0" src="assets/star.png" class="game_element" />
+                    <img id="star_img_1" src="assets/star.png" class="game_element" />
+                    <img id="star_img_2" src="assets/star.png" class="game_element" />
+                </div>
+            </div>
+        </div>
+        <div id="result"></div>
+        <div id="portable_forms">
+            <div id="floor_form">
+                <h5 class="element_header"></h5>
+                <label>Imagen:</label><input data_id="_imageForm_" type="range" min="1" max="4" value="1" onChange="setFloorImage(this)" /><br />
+                <label>Fuego:</label><input data_id="_typeForm_" type="checkbox" onClick="setFloorFire(this)" /><br />
+                <label>Oscuro:</label><input data_id="_darkForm_" id="" type="checkbox" onClick="setFloorDark(this)" /><br />
+                <label>Viento:</label><input data_id="_windForm_" type="range" min="-0.5" max="0.5" step="0.5" onChange="setFloorWind(this)" /><br />
+            </div>
+            <div id="position_form">
+                <h5 class="element_header"></h5>
+                <label style="width: 40px; display: inline-block;">X:<span data_id="_x_value_" id=""></span></label><input data_id="_x_" type="range" min="0" max="17" onChange="changeObjectPosition(this)" />
+                <label style="width: 40px; display: inline-block;">Y:<span data_id="_y_value_" id=""></span></label><input data_id="_y_" class="floor_affected" type="range" min="1" max="4" onChange="changeObjectPosition(this)" /><br />
+            </div>
+            <div id="nobottom_form">
+                <h5 class="element_header"></h5>
+                <label style="width: 40px; display: inline-block;">X:<span data_id="_x_value_" id=""></span></label><input data_id="_x_" type="range" min="0" max="17" onChange="changeObjectPosition(this)" />
+                <label style="width: 40px; display: inline-block;">Y:<span data_id="_y_value_" id=""></span></label><input data_id="_y_" class="floor_affected nobottom" type="range" min="2" max="4" onChange="changeObjectPosition(this)" /><br />
+            </div>
+            <div id="noceil_form">
+                <h5 class="element_header"></h5>
+                <label style="width: 40px; display: inline-block;">X:<span data_id="_x_value_" id=""></span></label><input data_id="_x_" type="range" min="0" max="17" onChange="changeObjectPosition(this)" />
+                <label style="width: 40px; display: inline-block;">Y:<span data_id="_y_value_" id=""></span></label><input data_id="_y_" class="floor_affected noceil" type="range" min="1" max="4" onChange="changeObjectPosition(this)" /><br />
+            </div>
+            <div id="stair_form">
+                <h5 class="element_header"></h5>
+                <label style="width: 40px; display: inline-block;">X:<span data_id="_x_value_" id=""></span></label><input data_id="_x_" type="range" min="0" max="17" onChange="changeObjectPosition(this)" />
+                <label style="width: 40px; display: inline-block;">Y:<span data_id="_y_value_" id=""></span></label><input data_id="_y_" class="floor_affected noceil" type="range" min="1" max="4" onChange="changeObjectPosition(this)" /><br />
+                <label style="width: 110px; display: inline-block;">Esta Arriba:<span data_id="_type_value_" id=""></span></label><input data_id="_type_" class="" type="checkbox" onClick="changeObjectPosition(this)" /><br />
+            </div>
+            <div id="water_form">
+                <h5 class="element_header"></h5>
+                <label style="width: 40px; display: inline-block;">X:<span data_id="_x_value_" id=""></span></label><input data_id="_x_" type="range" min="0" max="17" onChange="changeObjectPosition(this)" />
+                <label style="width: 40px; display: inline-block;">Y:<span data_id="_y_value_" id=""></span></label><input data_id="_y_" class="floor_affected" type="range" min="1" max="4" onChange="changeObjectPosition(this)" /><br />
+                <label style="width: 60px; display: inline-block;">Piso:<span data_id="_floorIndex_value_" id=""></span></label><input data_id="_floorIndex_" class="floor_affected" type="range" min="1" max="4" onChange="changeObjectPosition(this)" /><br />
+            </div>
+            <div id="button_form">
+                <h5 class="element_header"></h5>
+                <label style="width: 40px; display: inline-block;">X:<span data_id="_x_value_" id=""></span></label><input data_id="_x_" type="range" min="0" max="17" onChange="changeObjectPosition(this)" />
+                <label style="width: 40px; display: inline-block;">Y:<span data_id="_y_value_" id=""></span></label><input data_id="_y_" class="floor_affected" type="range" min="1" max="4" onChange="changeObjectPosition(this)" /><br />
+                <label style="width: 100px; display: inline-block;">Escalera:<span data_id="_stairIndex_value_" id=""></span></label><input data_id="_stairIndex_" class="stair_affected" type="range" min="1" max="1" onChange="changeObjectPosition(this)" /><br />
+            </div>
+            <div id="fancy_form">
+                <h5 class="element_header"></h5>
+                <label style="width: 40px; display: inline-block;">X:<span data_id="_x_value_" id=""></span></label><input data_id="_x_" type="range" min="0" max="17" onChange="changeObjectPosition(this)" />
+                <label style="width: 40px; display: inline-block;">Y:<span data_id="_y_value_" id=""></span></label><input data_id="_y_" class="floor_affected" type="range" min="1" max="4" onChange="changeObjectPosition(this)" /><br />
+                <label style="width: 90px; display: inline-block;">Imagen:<span data_id="_image_value_" id=""></span></label><input data_id="_image_" class="" type="range" min="1" max="100" onChange="changeObjectPosition(this)" /><br />
+            </div>
+        </div>
+    </body>
+</html>
